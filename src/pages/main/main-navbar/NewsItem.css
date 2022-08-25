@@ -1,0 +1,20 @@
+.news-list {
+	display: flex;
+	width: 100%;
+}
+
+.news-list li {
+	list-style: none;
+	font: 30px;
+	text-align: left;
+	margin-left: 30px;
+}
+
+.news-list button {
+	position: relative;
+	text-align: center;
+	left: 5%;
+	width: 25px;
+	border: none;
+	border-radius: 5px;
+}

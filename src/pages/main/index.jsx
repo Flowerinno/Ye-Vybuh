@@ -1,13 +1,17 @@
+import React from "react";
 import Map from "./Map";
-import Test from "./Test";
-
+import Modal from "./Modal";
+import {useSelector} from "react-redux";
 const MainPage = () => {
-    return (
-        <>
-            <Map/>
-            {/*<Test/>*/}
-        </>
-    )
-}
+	const lat = useSelector((state) => state.users.lat);
+	const lng = useSelector((state) => state.users.lng);
+
+	return (
+		<>
+			<Map lat={lat} lng={lng} />
+			<Modal />
+		</>
+	);
+};
 
 export default MainPage;

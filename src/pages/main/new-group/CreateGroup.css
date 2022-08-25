@@ -1,0 +1,108 @@
+.create-group {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto auto auto 0;
+	width: 30%;
+	height: 100%;
+	background-color: white;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	display: flex;
+	flex-flow: column;
+}
+
+.find-group {
+	display: flex;
+	flex-flow: column;
+	gap: 25px;
+	width: 330%;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.create-group-header {
+	display: flex;
+	flex-flow: row-reverse;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 40%;
+	background-color: rgb(127, 178, 255);
+
+	font-size: 20px;
+}
+
+.create-group-inputs {
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+	width: 100%;
+	height: 60%;
+	gap: 30px;
+	align-items: center;
+	justify-content: center;
+}
+
+.create-group-inputs input {
+	border: none;
+	border-bottom: 1px solid rgb(127, 178, 255);
+	width: 80%;
+	height: 6%;
+	font-size: large;
+}
+
+.create-group-inputs label {
+	text-align: left;
+	border: none;
+	border-bottom: 1px solid rgb(127, 178, 255);
+	width: 80%;
+	height: 6%;
+	font-size: large;
+}
+
+.create-group-inputs img {
+	z-index: 1;
+	width: 40%;
+	height: 20%;
+	border-radius: 5px;
+}
+
+.show-password {
+	position: relative;
+	left: 38%;
+	bottom: 21%;
+}
+
+.confirm-create {
+	border-radius: 5px;
+	width: 90px;
+	height: 40px;
+
+	border: 1px solid rgb(127, 178, 255);
+}
+
+.confirm-create:hover {
+	background-color: yellow;
+}
+
+.add-button {
+	border-radius: 5px;
+	width: 90px;
+	height: 37px;
+	border: 1px solid rgb(127, 178, 255);
+	position: relative;
+	left: 15.5%;
+}
+
+.add-button:hover {
+	background-color: yellow;
+}
+
+.find-group input {
+	border: none;
+	border-bottom: 1px solid rgb(127, 178, 255);
+	width: 20%;
+	font-size: large;
+}

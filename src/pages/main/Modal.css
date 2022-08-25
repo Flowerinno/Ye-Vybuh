@@ -1,0 +1,86 @@
+.leftNavbar {
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto auto auto 0;
+	width: 40px;
+	height: 35px;
+	background-color: white;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	cursor: pointer;
+}
+.leftNavbar:hover {
+	background-color: yellow;
+}
+
+.leftNavbar--active {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto auto auto 0;
+	width: 30%;
+	height: 100%;
+	background-color: white;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.navbar {
+	display: flex;
+	flex-flow: column;
+	height: inherit;
+	flex-wrap: wrap;
+}
+
+.zsu {
+	text-decoration: none;
+	color: black;
+	align-self: center;
+	width: 65%;
+	flex-wrap: wrap;
+}
+
+.navbar-new-group {
+	align-self: center;
+}
+.navbar-header {
+	display: flex;
+	flex-flow: row-reverse;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 35%;
+	background-color: rgb(127, 178, 255);
+}
+
+.navbar div {
+	border: none;
+	font-size: 20px;
+}
+
+.navbar-header button {
+	width: 20%;
+	height: 20px;
+}
+
+.navbar-header button:hover {
+	background-color: yellow;
+}
+
+.leftNavbar--active a {
+	text-decoration: none;
+	font-size: large;
+	align-self: center;
+	font-size: 20px;
+}
+
+.leftNavbar--active a:hover {
+	text-decoration: none;
+}

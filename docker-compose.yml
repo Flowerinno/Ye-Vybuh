@@ -2,10 +2,11 @@ version: "3"
 services:
   builder:
     image: node:17.9.0
-    container_name: builder
-    restart: on-failure
+    # container_name: builder
+    restart: always
     volumes:
       - ./:/app
+      - /app/node_modules
     working_dir: /app
     command: bash -c "npm ci && npm start"
     ports:

@@ -1,0 +1,93 @@
+.group-details {
+	display: flex;
+	flex-flow: row;
+}
+
+.group-news {
+	position: relative;
+	top: 2%;
+	width: 80%;
+	left: 18%;
+	list-style: none;
+}
+
+.group-settings {
+	margin-top: 5px;
+	margin-right: 2px;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+	gap: 5%;
+	width: 100%;
+	height: 10%;
+	flex-wrap: nowrap;
+}
+
+.group-settings a {
+	text-decoration: none;
+	color: black;
+	height: 5px;
+}
+
+.settings {
+	display: flex;
+	flex-flow: column;
+	width: 100%;
+	height: 70%;
+}
+
+.settings-inputs {
+	display: flex;
+	flex-flow: column;
+	position: relative;
+	width: 70%;
+	top: 40px;
+	left: 20%;
+	gap: 40px;
+}
+
+.settings-inputs input {
+	border: none;
+	border-bottom: 1px solid rgb(127, 178, 255);
+	width: 100%;
+	height: 15%;
+	font-size: large;
+}
+
+.settings-selector {
+	font-size: large;
+}
+
+.settings-saveButton {
+	border-radius: 5px;
+	width: 90px;
+	height: 37px;
+	border: 1px solid rgb(127, 178, 255);
+	position: relative;
+	top: 9%;
+	left: 75%;
+}
+
+.settings button:hover {
+	background-color: yellow;
+}
+
+.settings-news {
+	display: flex;
+	flex-flow: column;
+	position: relative;
+	width: 70%;
+	top: 20%;
+	left: 20%;
+	gap: 15px;
+}
+
+.change-news {
+	border-radius: 5px;
+	width: 90px;
+	height: 37px;
+	border: 1px solid rgb(127, 178, 255);
+	position: fixed;
+	top: 50%;
+	left:22.3%;
+}
