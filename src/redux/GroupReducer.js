@@ -1,40 +1,29 @@
 const initialState = {
-	groups: [
-		{
-			name: "єВибух",
-			password: "555",
-			id: "1",
-			avatar:
-				"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Outline_of_Ukraine.svg/1200px-Outline_of_Ukraine.svg.png",
-			news: [
-				{
-					newsSource: "Lachen",
-					id: "2",
-				},
-			],
-		},
-	],
-	allGroups: [
-		{
-			name: "UA",
-			password: "1111",
-			id: Math.random().toString(),
-		},
-		{
-			name: "Kozak",
-			password: "2222",
-			id: Math.random().toString(),
-		},
-	],
+	groups: [],
+	allGroups: [],
+	newsSource: [],
 };
 
 const GroupReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "CREATE_GROUP": {
+		case "CREATEGROUP": {
 			const {name, avatar} = action;
 			return {
 				...state,
-				groups: [...state.groups, {name, id: Math.random().toString(), avatar}],
+				groups: [
+					...state.groups,
+					{name, id: Math.random().toString(), avatar, members: 1},
+				],
+			};
+		}
+		case "FINDGROUP": {
+			const {name, password, id} = action;
+
+			const foundGroup = state.allGroups.find((group) => group.id === id);
+
+			return {
+				...state,
+				groups: [...state.groups, foundGroup],
 			};
 		}
 		case "DELETE_NEWS_SOURCE": {
@@ -56,8 +45,49 @@ const GroupReducer = (state = initialState, action) => {
 				}),
 			};
 		}
-		case "USER_GROUPS": {
-			const {name, id, avatar} = action.data;
+		case "FETCHNEWSSOURCE": {
+			return {
+				...state,
+				newsSource: action.data,
+			};
+		}
+		case "CHANGEGROUPSETTINGS": {
+			const {name, password, groupId} = action;
+
+			const foundGroup = state.groups.find((group) => group.id === groupId);
+
+			let data = {};
+			if (name) {
+				data.name = name;
+			}
+			if (password) {
+				data.password = password;
+			}
+			return {
+				...state,
+				groups: state.groups.map((group) => {
+					if (group.id !== foundGroup.id) {
+						return state;
+					} else {
+						return {
+							...group,
+							...data,
+						};
+					}
+				}),
+			};
+		}
+		case "FETCHALLGROUPS": {
+			return {
+				...state,
+				allGroups: action.data,
+			};
+		}
+		case "FETCHUSERGROUPS": {
+			return {
+				...state,
+				groups: action.data,
+			};
 		}
 		case "ADD_NEWS": {
 			const {value, groupId} = action;

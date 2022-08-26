@@ -33,7 +33,7 @@ function Map(props) {
 		setMap(null);
 	}, []);
 	const image = "http://maps.google.com/mapfiles/kml/shapes/man.png";
-
+	const dangerimage = "http://maps.google.com/mapfiles/kml/shapes/caution.png";
 	return isLoaded ? (
 		<div style={{display: "flex", height: "100%"}}>
 			<GoogleMap
@@ -44,6 +44,8 @@ function Map(props) {
 			>
 				{/* Child components, such as markers, info windows, etc. */}
 				<Marker position={{lat: props.lat, lng: props.lng}} icon={image} />
+				<Marker position={{lat: 50.0, lng: 36.2292}} icon={image} />
+				<Marker position={{lat: 46.4775, lng: 30.7326}} icon={image} />
 				<Modal />
 			</GoogleMap>
 		</div>

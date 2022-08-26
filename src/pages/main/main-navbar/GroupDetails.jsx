@@ -5,30 +5,13 @@ import News from "./News";
 import MyGroups from "./MyGroups";
 import {FiSettings} from "react-icons/fi";
 import {IconContext} from "react-icons";
-import {useState, useRef} from "react";
+import {useState, useRef, useEffect} from "react";
 import Select from "react-select";
 import {AiOutlineRollback} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import NewsList from "./NewsList";
-const dummyNews = [
-	{
-		value: "Zelenskiy",
-		label: "Zelenskiy",
-	},
-	{
-		value: "PornHub",
-		label: "PornHub",
-	},
-	{
-		value: "Lachen",
-		label: "Lachen",
-	},
-	{
-		value: "Poroshenko",
-		label: "Poroshenko",
-	},
-];
+
 const GroupDetails = (props) => {
 	const [settingsIsShown, setSettingsIsShown] = useState(false);
 	const [selectedOption, setSelectedOption] = useState();
@@ -40,6 +23,7 @@ const GroupDetails = (props) => {
 	const foundGroup = groups.find((group) => group.id === groupId);
 
 	const groupName = foundGroup?.name;
+	const groupMembers = foundGroup?.members;
 
 	const dispatch = useDispatch();
 	const passwordRef = useRef();
@@ -74,6 +58,17 @@ const GroupDetails = (props) => {
 		dispatch({type: "ADD_NEWS", groupId, value: selectedOption});
 	}
 
+	useEffect(() => {
+		dispatch({type: "FETCH_NEWS_SOURCE"});
+	}, []);
+
+	const newsSource = useSelector((state) => state.groups.newsSource);
+
+	let options = newsSource.map((source) => ({
+		value: source.name,
+		label: source.name,
+	}));
+
 	return (
 		<>
 			{!settingsIsShown && (
@@ -94,7 +89,7 @@ const GroupDetails = (props) => {
 							>
 								{groupName}
 							</span>
-							<span>Учасники:3</span>
+							<span>Учасники:{`${groupMembers}`}</span>
 						</span>
 						<div>
 							<MyGroups />
@@ -130,7 +125,7 @@ const GroupDetails = (props) => {
 						</button>
 						<div className="settings-news">
 							<Select
-								options={dummyNews}
+								options={options}
 								className="settings-selector"
 								placeholder="додати новий ресурс новин "
 								isSearchable={true}

@@ -1,9 +1,15 @@
 import "./MyGroups.css";
 import {Link} from "react-router-dom";
 import NewGroups from "./NewGroups";
-import {useSelector} from "react-redux";
-import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect} from "react";
 const MyGroups = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({type: "FETCH_USER_GROUPS"});
+	}, []);
+
 	const groups = useSelector((state) => state.groups.groups);
 
 	return (

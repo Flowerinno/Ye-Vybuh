@@ -12,12 +12,15 @@ const CreateGroup = () => {
 	const [selectedValue, setSelectedValue] = useState();
 	const [isShown, setisShown] = useState("password");
 	const [base64, setBase64] = useState(null);
-
-	const allGroups = useSelector((state) => state.groups.allGroups);
-
 	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch({type: "FETCH_ALL_GROUPS"});
+	}, []);
+
+	const allGroups = useSelector((state) => state.groups.allGroups);
 
 	const nameRef = useRef();
 	const passwordRef = useRef();
@@ -34,6 +37,7 @@ const CreateGroup = () => {
 			setisShown("password");
 		}
 	}
+
 	const options = allGroups.map((group) => ({
 		value: group.name,
 		label: group.name,
@@ -65,7 +69,7 @@ const CreateGroup = () => {
 
 		const {id} = allGroups.find((group) => group.name === name);
 
-		// dispatch({type: "FIND_GROUP", name, password, id});
+		dispatch({type: "FIND_GROUP", name, password, id});
 		// navigate("/main");
 	}
 
