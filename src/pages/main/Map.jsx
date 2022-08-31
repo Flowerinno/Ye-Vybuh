@@ -1,6 +1,7 @@
 import React from "react";
 import {GoogleMap, Marker, useJsApiLoader} from "@react-google-maps/api";
 import Modal from "./Modal";
+import {useSelector} from "react-redux";
 
 const containerStyle = {
 	height: "100vh",
@@ -15,6 +16,9 @@ const ukraine = {
 };
 
 function Map(props) {
+	const groupDetails = useSelector((state) => state.groups.groupDetails);
+	const accidents = useSelector((state) => state.groups.accidents);
+
 	const {isLoaded} = useJsApiLoader({
 		id: "google-map-script",
 		googleMapsApiKey: "AIzaSyBIoAo23DKC9Wn1JVPsXR0oh369N-i2MMc",
@@ -43,9 +47,23 @@ function Map(props) {
 				onUnmount={onUnmount}
 			>
 				{/* Child components, such as markers, info windows, etc. */}
-				<Marker position={{lat: props.lat, lng: props.lng}} icon={image} />
-				<Marker position={{lat: 50.0, lng: 36.2292}} icon={image} />
-				<Marker position={{lat: 46.4775, lng: 30.7326}} icon={image} />
+				{Object.keys(groupDetails).length !== 0 &&
+					groupDetails.members.map((member) => {
+						let isThisMemberInDanger = false;
+						for (let accident of accidents) {
+							if (accident.location === member.location) {
+								isThisMemberInDanger = true;
+								break;
+							}
+						}
+						return (
+							<Marker
+								position={{lat: member.lat, lng: member.lng}}
+								icon={isThisMemberInDanger ? dangerimage : image}
+							/>
+						);
+					})}
+
 				<Modal />
 			</GoogleMap>
 		</div>

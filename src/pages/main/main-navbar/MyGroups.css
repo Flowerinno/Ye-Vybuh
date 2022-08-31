@@ -4,11 +4,9 @@
 	right: 0;
 	bottom: 0;
 	top: 1;
-
 	margin: auto auto auto 0;
 	width: 15%;
 	height: 91%;
-	background-color: rgb(219, 212, 212);
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 	display: flex;
@@ -36,7 +34,7 @@
 .my-groups-image {
 	z-index: 20;
 	box-shadow: 0 0 0 1px green, 0 0 13px #333;
-	width: 100%;
+	width: 80%;
 	height: 55%;
 	border: none;
 	border-radius: 10px;

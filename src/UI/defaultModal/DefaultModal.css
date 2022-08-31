@@ -10,9 +10,7 @@
 	background-color: white;
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
-    
 }
-
 
 .navbar-header {
 	display: flex;
@@ -21,5 +19,4 @@
 	align-items: center;
 	height: 8.8%;
 	gap: 39%;
-	background-color: rgb(127, 178, 255);
 }

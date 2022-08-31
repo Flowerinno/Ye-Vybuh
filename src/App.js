@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import MainPage from "./pages/main";
 import {Routes, Route, Navigate} from "react-router-dom";
 import LoginPage from "./pages/login";
@@ -8,18 +8,23 @@ import {useSelector} from "react-redux";
 
 function App() {
 	const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
-
+	useEffect(() => {
+		let timeout = setTimeout(
+			() => localStorage.removeItem("userToken"),
+			14400000
+		);
+		return () => {
+			clearInterval(timeout);
+		};
+	}, []);
 	return (
 		<div className="font">
-			{/* <LoggingObserver /> */}
+			<LoggingObserver />
 			<Routes>
-				{/* {!isLoggedIn && (
-					<Route path="/main" element={<Navigate to="/signup" replace />} />
-				)} */}
 				<Route path="/login" element={<LoginPage />} />
-				<Route path="*" element={<Navigate to="/main" replace />} />
+				{/* {isLoggedIn && <Route path="*" element={<Navigate to="/main" replace />} />} */}
 				<Route path="/signup" element={<SignupPage />} />
-				<Route path="/main/*" element={<MainPage />} />
+				{isLoggedIn && <Route path="/main/*" element={<MainPage />} />}
 			</Routes>
 		</div>
 	);

@@ -39,37 +39,34 @@ const CreateGroup = () => {
 	}
 
 	const options = allGroups.map((group) => ({
-		value: group.name,
-		label: group.name,
+		value: group.title,
+		label: group.title,
 	}));
 
 	function selectHandler(value) {
 		setSelectedValue(value);
 	}
 
-	const submitHandler = useCallback(
-		(e) => {
-			e.preventDefault();
-			const name = nameRef.current.value;
-			const password = passwordRef.current.value;
-			const avatar = localStorage.getItem("base64");
+	const submitHandler = useCallback((e) => {
+		e.preventDefault();
+		const name = nameRef.current.value;
+		const password = passwordRef.current.value;
+		const avatar = localStorage.getItem("base64");
 
-			localStorage.removeItem("base64");
-			dispatch({type: "CREATE_GROUP", name, avatar});
+		localStorage.removeItem("base64");
+		dispatch({type: "CREATE_GROUP", name, avatar, password});
 
-			navigate("/main");
-		},
-		[isShown, base64]
-	);
+		navigate("/main");
+	}, []);
 
 	function inputHandler(e) {
 		e.preventDefault();
-		const name = selectedValue.value;
+		const title = selectedValue.value;
 		const password = passwordInputRef.current.value;
 
-		const {id} = allGroups.find((group) => group.name === name);
+		const {id} = allGroups.find((group) => group.title === title);
 
-		dispatch({type: "FIND_GROUP", name, password, id});
+		dispatch({type: "JOIN_GROUP", title, password, id});
 		// navigate("/main");
 	}
 
@@ -96,7 +93,7 @@ const CreateGroup = () => {
 					options={options}
 					isSearchable={true}
 					onChange={selectHandler}
-					className="selector"
+					className="create-group-selector"
 				/>
 
 				<input placeholder="введіть пароль групи" ref={passwordInputRef} />

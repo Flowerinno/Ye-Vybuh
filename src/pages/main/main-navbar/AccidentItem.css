@@ -1,0 +1,8 @@
+.accident {
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+.accident li {
+    margin-left: 5px; 
+}

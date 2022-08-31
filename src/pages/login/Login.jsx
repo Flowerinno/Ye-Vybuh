@@ -1,15 +1,25 @@
 import "./Login.css";
 import logo from "../../UI/YeVybuhImg/vubyh.png";
 import {useNavigate} from "react-router-dom";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import React from "react";
 import {useDispatch} from "react-redux";
+import {BsEye} from "react-icons/bs";
 
 const Login = () => {
+	const [isShown, setisShown] = useState("password");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const usernameRef = useRef();
 	const passwordRef = useRef();
+
+	function shownpas() {
+		if (isShown === "password") {
+			setisShown("text");
+		} else {
+			setisShown("password");
+		}
+	}
 
 	function createAccount() {
 		navigate("/signup");
@@ -31,20 +41,30 @@ const Login = () => {
 
 	return (
 		<div className="login-main">
-			<img alt="" className="logo" src={logo} />
-			<h2 style={{color: "white"}}>Login</h2>
 			<div className="login-inputs">
-				<input ref={usernameRef} placeholder="ім'я" type="text" />
-				<input ref={passwordRef} placeholder="пароль" type="password" />
-			</div>
-
-			<div className="login-buttons">
-				<div>
-					<button onClick={submitHandler}>Увійти</button>
+				<img alt="" className="login-logo" src={logo} />
+				<h2 style={{color: "black"}}>Вхід в аккаунт</h2>
+				<div className="login-name">
+					<label htmlFor="name" style={{fontSize: "large"}}>
+						Ім'я
+					</label>
+					<input required ref={usernameRef} id="name" type="text" />
 				</div>
-				<div>
-					<button onClick={createAccount}>Створити аккаунт</button>
-				</div>{" "}
+				<div className="login-password">
+					<label htmlFor="password" style={{fontSize: "large"}}>
+						Пароль
+					</label>
+					<input ref={passwordRef} id="password" type={isShown} required />
+					<BsEye className="login-show-password" onClick={shownpas} />
+				</div>
+				<div className="login-buttons">
+					<div>
+						<button onClick={submitHandler}>Увійти</button>
+					</div>
+					<div>
+						<button onClick={createAccount}>Створити аккаунт</button>
+					</div>{" "}
+				</div>
 			</div>
 		</div>
 	);

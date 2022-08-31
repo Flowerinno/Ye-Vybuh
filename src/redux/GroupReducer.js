@@ -1,54 +1,27 @@
 const initialState = {
 	groups: [],
 	allGroups: [],
-	newsSource: [],
+	newsSources: [],
+	groupDetails: {},
+	accidents: [],
 };
 
 const GroupReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "CREATEGROUP": {
-			const {name, avatar} = action;
-			return {
-				...state,
-				groups: [
-					...state.groups,
-					{name, id: Math.random().toString(), avatar, members: 1},
-				],
-			};
+		case "SET_GROUP_DETAILS": {
+			if (state.groupDetails === null && undefined) {
+				return state;
+			} else {
+				return {
+					...state,
+					groupDetails: action.data,
+				};
+			}
 		}
-		case "FINDGROUP": {
-			const {name, password, id} = action;
-
-			const foundGroup = state.allGroups.find((group) => group.id === id);
-
+		case "SET_SOURCES": {
 			return {
 				...state,
-				groups: [...state.groups, foundGroup],
-			};
-		}
-		case "DELETE_NEWS_SOURCE": {
-			const {id, groupId} = action;
-
-			const foundGroup = state.groups.find((group) => group.id === groupId);
-
-			return {
-				...state,
-				groups: state.groups.map((group) => {
-					if (group.id !== foundGroup.id) {
-						return state;
-					} else {
-						return {
-							...group,
-							news: group.news.filter((newsSource) => newsSource.id !== id),
-						};
-					}
-				}),
-			};
-		}
-		case "FETCHNEWSSOURCE": {
-			return {
-				...state,
-				newsSource: action.data,
+				newsSources: action.data,
 			};
 		}
 		case "CHANGEGROUPSETTINGS": {
@@ -77,45 +50,23 @@ const GroupReducer = (state = initialState, action) => {
 				}),
 			};
 		}
-		case "FETCHALLGROUPS": {
+		case "SET_ALL_GROUPS": {
 			return {
 				...state,
 				allGroups: action.data,
 			};
 		}
-		case "FETCHUSERGROUPS": {
+		case "SET_USER_GROUPS": {
 			return {
 				...state,
 				groups: action.data,
 			};
 		}
-		case "ADD_NEWS": {
-			const {value, groupId} = action;
-			const foundGroup = state.groups.find((group) => group.id === groupId);
-			let newsData = {newsSource: value, id: Math.random().toString()};
-
-			if (value === undefined) {
-				return state;
-			}
-			if (
-				foundGroup?.news.find((newsSource) => newsSource.newsSource === value)
-			) {
-				return state;
-			} else {
-				return {
-					...state,
-					groups: state.groups.map((group) => {
-						if (group.id !== foundGroup.id) {
-							return group;
-						} else {
-							return {
-								...group,
-								news: [...group.news, newsData],
-							};
-						}
-					}),
-				};
-			}
+		case "SET_ACCIDENTS": {
+			return {
+				...state,
+				accidents: action.data,
+			};
 		}
 		case "CHANGE_GROUP_SETTINGS": {
 			const {name, groupId, password} = action;

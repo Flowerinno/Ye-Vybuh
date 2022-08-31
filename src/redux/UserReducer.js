@@ -9,11 +9,12 @@ const initialState = {
 const UserReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "ISLOGGEDIN": {
-			const {username, id, lat, lng} = action;
+			const {username, id, lat, lng, city} = action;
 			return {
 				...state,
 				isLoggedIn: true,
 				username,
+				city,
 				id,
 				lat,
 				lng,

@@ -27,7 +27,7 @@ const MyGroups = () => {
 						key={group.id}
 					>
 						<li>
-							{group.name}
+							{group.title}
 							<br />
 							<img className="my-groups-image" alt="" src={group.avatar} />
 						</li>

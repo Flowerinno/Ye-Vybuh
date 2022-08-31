@@ -8,18 +8,22 @@ const LoggingObserver = () => {
 	const location = useLocation();
 	const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
 	const userToken = localStorage.getItem("userToken");
+	console.log(isLoggedIn, location.pathname, userToken);
 	useEffect(() => {
-		if (isLoggedIn === false && location.pathname !== "/login" && !userToken) {
+		if (
+			isLoggedIn === false &&
+			location.pathname !== ("/login" || "/signup") &&
+			!userToken
+		) {
 			navigate("/login");
 		}
-    }, [isLoggedIn]);
-    
-    useEffect(() => {
+	}, [isLoggedIn]);
+
+	useEffect(() => {
 		if (userToken) {
 			dispatch({type: "LOG_OBSERVER"});
 		}
-	}, []);
+	}, [userToken]);
 	return null;
 };
-
 export default LoggingObserver;

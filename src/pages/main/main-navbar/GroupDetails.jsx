@@ -15,15 +15,15 @@ import NewsList from "./NewsList";
 const GroupDetails = (props) => {
 	const [settingsIsShown, setSettingsIsShown] = useState(false);
 	const [selectedOption, setSelectedOption] = useState();
-	const groups = useSelector((state) => state.groups.groups);
+	const groupDetails = useSelector((state) => state.groups.groupDetails);
 
+	const newsSources = useSelector((state) => state.groups.newsSources);
 	const id = useParams();
 	const groupId = Object.values(id).toString();
 
-	const foundGroup = groups.find((group) => group.id === groupId);
-
-	const groupName = foundGroup?.name;
-	const groupMembers = foundGroup?.members;
+	// useEffect(() => {
+	// 	dispatch({type: "FETCH_GROUP_DETAILS", groupId});
+	// }, [groupId]);
 
 	const dispatch = useDispatch();
 	const passwordRef = useRef();
@@ -55,18 +55,27 @@ const GroupDetails = (props) => {
 	function changeNewsHandler(e) {
 		e.preventDefault();
 
-		dispatch({type: "ADD_NEWS", groupId, value: selectedOption});
+		dispatch({type: "ADD_NEWS_SOURCE", groupId, value: selectedOption});
 	}
 
 	useEffect(() => {
 		dispatch({type: "FETCH_NEWS_SOURCE"});
-	}, []);
-
-	const newsSource = useSelector((state) => state.groups.newsSource);
-
-	let options = newsSource.map((source) => ({
-		value: source.name,
-		label: source.name,
+		dispatch({ type: "FETCH_SOURCES" });
+		dispatch({type: "FETCH_GROUP_DETAILS", groupId});
+		let interval = setInterval(
+			() => dispatch({type: "FETCH_ACCIDENTS", groupId}),
+			5000
+		);
+		return () => {
+			clearInterval(interval);
+		};
+	}, [groupId]);
+	if (Object.keys(groupDetails).length === 0) {
+		return null;
+	}
+	let options = newsSources.map((source) => ({
+		value: source,
+		label: source,
 	}));
 
 	return (
@@ -87,9 +96,9 @@ const GroupDetails = (props) => {
 									borderRadius: "5px",
 								}}
 							>
-								{groupName}
+								{groupDetails.title}
 							</span>
-							<span>Учасники:{`${groupMembers}`}</span>
+							<span>Учасники:{`${groupDetails.members.length}`}</span>
 						</span>
 						<div>
 							<MyGroups />
@@ -134,7 +143,7 @@ const GroupDetails = (props) => {
 							<button className="change-news" onClick={changeNewsHandler}>
 								Додати новини
 							</button>
-							<NewsList />
+							<NewsList sources={groupDetails.sources} />
 						</div>
 						<div>
 							<MyGroups />
